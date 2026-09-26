@@ -1,0 +1,10 @@
+{
+  "name": "چیدمان هوشمند فرش | CarpetDecor",
+  "description": "سامانه بومی و آفلاین جای‌گذاری و شبیه‌سازی فرش ایرانی در دکوراسیون با پرسپکتیو ۴ نقطه‌ای و سایه طبیعی",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

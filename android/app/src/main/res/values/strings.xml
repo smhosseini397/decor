@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">چیدمان هوشمند فرش</string>
+    <string name="app_subtitle">سامانه آفلاین شبیه‌سازی و چیدمان فرش در دکوراسیون</string>
+    
+    <!-- Home Actions -->
+    <string name="btn_select_carpet">انتخاب عکس فرش</string>
+    <string name="btn_take_carpet_photo">عکاسی از فرش با دوربین</string>
+    <string name="btn_select_room">انتخاب عکس دکور / اتاق</string>
+    <string name="btn_start_staging">شروع طراحی و چیدمان</string>
+    <string name="carpet_selected_badge">فرش انتخاب شده است</string>
+    <string name="room_selected_badge">تصویر اتاق انتخاب شده است</string>
+    <string name="no_image_selected">تصویری انتخاب نشده است</string>
+    <string name="quick_samples">طرح‌ها و اتاق‌های نمونه</string>
+    <string name="sample_carpet_isfahan">فرش ابریشم اسلیمی اصفهان</string>
+    <string name="sample_carpet_tabriz">فرش سنتی لچک ترنج تبریز</string>
+    <string name="sample_room_living">سالن پذیرایی کف پارکت مدرن</string>
+    <string name="sample_room_classic">فضای نشیمن کف سنگ مرمر</string>
+
+    <!-- Editor Toolbar -->
+    <string name="action_transform">جابجایی و مقیاس</string>
+    <string name="action_perspective">پرسپکتیو ۴ نقطه‌ای</string>
+    <string name="action_shadow">تنظیمات سایه طبیعی</string>
+    <string name="action_remove_bg">حذف پس‌زمینه فرش</string>
+    <string name="action_undo">بازگشت</string>
+    <string name="action_redo">تکرار</string>
+    <string name="action_reset">بازنشانی</string>
+    <string name="action_save">ذخیره و اشتراک</string>
+    
+    <!-- Corner handles -->
+    <string name="corner_top_left">گوشه بالا-چپ</string>
+    <string name="corner_top_right">گوشه بالا-راست</string>
+    <string name="corner_bottom_right">گوشه پایین-راست</string>
+    <string name="corner_bottom_left">گوشه پایین-چپ</string>
+
+    <!-- Shadow Controls -->
+    <string name="shadow_title">تنظیمات سایه واقعی کف</string>
+    <string name="shadow_opacity">شدت و غلظت سایه</string>
+    <string name="shadow_blur">میزان ماتی و محوشدگی (Blur)</string>
+    <string name="shadow_elevation">فاصله و ارتفاع سایه از فرش</string>
+    <string name="shadow_direction">زاویه تابش نور و جهت سایه</string>
+    <string name="shadow_ambient">سایه محیطی نرم (Contact Shadow)</string>
+
+    <!-- Background Removal -->
+    <string name="bg_removal_title">حذف هوشمند زمینه فرش (کاملاً آفلاین)</string>
+    <string name="bg_removal_desc">حفظ ۱۰۰٪ نقشه، تاروپود، گل‌ها و ریشه‌های فرش بدون تغییر رنگ</string>
+    <string name="bg_removal_auto">حذف خودکار زمینه</string>
+    <string name="bg_removal_sensitivity">حساسیت تشخیص لبه و ریشه‌ها</string>
+    <string name="bg_restore_original">بازگردانی فرش به حالت اولیه</string>
+    <string name="bg_fringe_protect">حفاظت پیشرفته از ریشه‌های سفید فرش</string>
+
+    <!-- Save & Export Dialog -->
+    <string name="export_title">ذخیره تصویر نهایی با کیفیت بالا</string>
+    <string name="export_format">فرمت خروجی:</string>
+    <string name="format_jpg">JPG (حجم بهینه با کیفیت عالی)</string>
+    <string name="format_png">PNG (بالاترین کیفیت بدون فشردگی)</string>
+    <string name="export_quality">کیفیت خروجی: %1$d%%</string>
+    <string name="btn_save_gallery">ذخیره در گالری گوشی</string>
+    <string name="btn_share_image">اشتراک‌گذاری تصویر</string>
+    <string name="saving_in_progress">در حال ذخیره‌سازی تصویر نهایی با رزولوشن اصلی...</string>
+    <string name="save_success">تصویر با موفقیت در پوشه تصاویر گالری ذخیره شد.</string>
+    <string name="save_failed">خطا در ذخیره‌سازی تصویر. لطفاً دسترسی به حافظه را بررسی نمایید.</string>
+
+    <!-- Permissions and Errors -->
+    <string name="permission_camera_title">دسترسی به دوربین</string>
+    <string name="permission_camera_desc">برای عکاسی مستقیم از فرش یا فضای اتاق، نیاز به اجازه دسترسی به دوربین است.</string>
+    <string name="permission_storage_title">دسترسی به حافظه</string>
+    <string name="permission_storage_desc">برای انتخاب عکس از گالری و ذخیره دکور نهایی، دسترسی به حافظه لازم است.</string>
+    <string name="err_no_carpet">لطفاً ابتدا عکس فرش را انتخاب کنید.</string>
+    <string name="err_no_room">لطفاً ابتدا عکس دکور یا اتاق را انتخاب کنید.</string>
+    <string name="err_load_image">خطا در بارگذاری تصویر. فرمت فایل ممکن است پشتیبانی نشود.</string>
+    <string name="err_memory">حافظه موقت دستگاه پر است. تصویر بهینه شد.</string>
+    <string name="toast_reset_done">تنظیمات پرسپکتیو بازنشانی شد.</string>
+</resources>
