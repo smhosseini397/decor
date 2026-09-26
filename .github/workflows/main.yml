@@ -14,7 +14,7 @@ jobs:
 
     steps:
 
-      - name: Checkout source code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -23,92 +23,64 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: ""
-
-      - name: Configure Android SDK
-        shell: bash
+      - name: Generate Gradle Wrapper
         run: |
           set -e
 
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          echo "Generating Gradle Wrapper..."
 
-          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          gradle wrapper --gradle-version 8.4
 
-          if [ ! -f "$SDKMANAGER" ]; then
-            SDKMANAGER=$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | head -n 1)
-          fi
+          echo ""
+          echo "Wrapper files:"
+          find gradle -maxdepth 3 -type f -print
 
-          echo "Using sdkmanager:"
-          echo "$SDKMANAGER"
+          echo ""
+          echo "Checking wrapper JAR..."
 
-          if [ -z "$SDKMANAGER" ] || [ ! -f "$SDKMANAGER" ]; then
-            echo "ERROR: sdkmanager not found."
+          if [ ! -f "gradle/wrapper/gradle-wrapper.jar" ]; then
+            echo "ERROR: gradle-wrapper.jar was not generated."
             exit 1
           fi
 
-          yes | "$SDKMANAGER" --licenses >/dev/null || true
-
-          "$SDKMANAGER" \
-            "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0"
-
-      - name: Check Android project
-        shell: bash
-        run: |
-          echo "======================================"
-          echo "ANDROID PROJECT CHECK"
-          echo "======================================"
-
-          pwd
-
-          echo ""
-          echo "Repository:"
-          ls -la
-
-          echo ""
-
-          if [ ! -f "gradlew" ]; then
-            echo "ERROR: gradlew was not found."
-            echo ""
-            echo "This repository does not appear to contain"
-            echo "a complete Android Gradle project."
-            exit 1
-          fi
-
-          echo "gradlew found."
+          echo "gradle-wrapper.jar exists."
 
       - name: Make Gradle executable
         run: chmod +x gradlew
 
-      - name: Show Gradle version
+      - name: Test Gradle Wrapper
         run: ./gradlew --version
 
-      - name: Clean project
-        run: ./gradlew clean
-
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Find APK
-        shell: bash
+      - name: Check Android project
         run: |
           echo "======================================"
-          echo "GENERATED APK FILES"
+          echo "ANDROID PROJECT"
           echo "======================================"
 
-          find . \
-            -type f \
-            -name "*.apk" \
-            -print
+          if [ ! -d "android" ]; then
+            echo "ERROR: android directory does not exist."
+            exit 1
+          fi
+
+          echo "Android directory found."
+
+          ls -la android
+
+      - name: Build Android APK
+        working-directory: android
+        run: ../gradlew assembleDebug --stacktrace
+
+      - name: Find APK
+        run: |
+          echo "======================================"
+          echo "APK FILES"
+          echo "======================================"
+
+          find android -type f -name "*.apk" -print
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: carpet-decor-debug-apk
-          path: "**/build/outputs/apk/debug/*.apk"
+          path: android/**/build/outputs/apk/debug/*.apk
           if-no-files-found: error
