@@ -23,17 +23,69 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Generate Gradle Wrapper
+      - name: Check Android project
         run: |
           set -e
 
-          echo "Generating Gradle Wrapper..."
+          echo "======================================"
+          echo "CHECKING ANDROID PROJECT"
+          echo "======================================"
+
+          if [ ! -d "android" ]; then
+            echo "ERROR: android directory does not exist."
+            exit 1
+          fi
+
+          echo ""
+          echo "ANDROID DIRECTORY:"
+          find android -maxdepth 3 -type f | sort
+
+          echo ""
+          echo "======================================"
+          echo "CHECKING GRADLE FILES"
+          echo "======================================"
+
+          if [ -f "android/settings.gradle" ]; then
+            echo "FOUND: android/settings.gradle"
+          fi
+
+          if [ -f "android/settings.gradle.kts" ]; then
+            echo "FOUND: android/settings.gradle.kts"
+          fi
+
+          if [ -f "android/build.gradle" ]; then
+            echo "FOUND: android/build.gradle"
+          fi
+
+          if [ -f "android/build.gradle.kts" ]; then
+            echo "FOUND: android/build.gradle.kts"
+          fi
+
+          if [ -f "android/gradlew" ]; then
+            echo "FOUND: android/gradlew"
+          fi
+
+          if [ -f "android/gradle/wrapper/gradle-wrapper.jar" ]; then
+            echo "FOUND: android/gradle/wrapper/gradle-wrapper.jar"
+          fi
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Generate Android Gradle Wrapper
+        working-directory: android
+        run: |
+          set -e
+
+          echo "======================================"
+          echo "GENERATING ANDROID GRADLE WRAPPER"
+          echo "======================================"
 
           gradle wrapper --gradle-version 8.4
 
           echo ""
           echo "Wrapper files:"
-          find gradle -maxdepth 3 -type f -print
+          find gradle/wrapper -maxdepth 1 -type f -print
 
           echo ""
           echo "Checking wrapper JAR..."
@@ -46,29 +98,16 @@ jobs:
           echo "gradle-wrapper.jar exists."
 
       - name: Make Gradle executable
+        working-directory: android
         run: chmod +x gradlew
 
       - name: Test Gradle Wrapper
+        working-directory: android
         run: ./gradlew --version
-
-      - name: Check Android project
-        run: |
-          echo "======================================"
-          echo "ANDROID PROJECT"
-          echo "======================================"
-
-          if [ ! -d "android" ]; then
-            echo "ERROR: android directory does not exist."
-            exit 1
-          fi
-
-          echo "Android directory found."
-
-          ls -la android
 
       - name: Build Android APK
         working-directory: android
-        run: ../gradlew assembleDebug --stacktrace
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Find APK
         run: |
